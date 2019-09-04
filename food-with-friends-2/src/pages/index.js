@@ -1,42 +1,12 @@
 import React from "react"
-import Header from "../components/header"
 import Layout from "../components/layout"
 import ImageSlider from "../components/imageSlider"
-import Helmet from "react-helmet"
 import Title from "../components/global/title"
-import SubTitle from "../components/global/subTitle"
-import { Link } from "gatsby"
-import { events } from "../seedData"
-import styled from "styled-components"
-import { graphql, useStaticQuery } from "gatsby"
+import { graphql } from "gatsby"
 import { get, orderBy } from "lodash"
-import ReadMoreLink from "../components/global/readMoreLink"
+
 import Article from "../components/global/article"
-import * as seed from "../seedData"
-
-import { setColor, setFontFamily } from "../styles"
-import Img from "gatsby-image"
-import useImages from "../hooks/useImages"
 import Card from "../components/card"
-
-const Div = styled.div`
-  width: 100%;
-  height: 320px;
-
-  @media (min-width: 736px) {
-    height: 640px;
-  }
-
-  img {
-    object-fit: contain;
-    height: 320px;
-    text-align: left;
-
-    @media (min-width: 736px) {
-      height: 640px;
-    }
-  }
-`
 
 const IndexPage = ({ data }) => {
   const getDiffDays = event => {
