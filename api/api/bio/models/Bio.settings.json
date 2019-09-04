@@ -1,0 +1,31 @@
+{
+  "connection": "default",
+  "collectionName": "bios",
+  "info": {
+    "name": "bio",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "headline": {
+      "type": "string"
+    },
+    "author": {
+      "model": "user",
+      "via": "bio",
+      "plugin": "users-permissions"
+    },
+    "content": {
+      "type": "text"
+    },
+    "image": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload"
+    }
+  }
+}
