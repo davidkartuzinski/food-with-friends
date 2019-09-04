@@ -20,7 +20,6 @@ const IndexPage = ({ data }) => {
   const nextEventDate = orderBy(
     data.allStrapiEvent.edges,
     event => {
-      console.log(event)
       return getDiffDays(event.node)
     },
     "asc"
@@ -61,6 +60,7 @@ export const pageQuery = graphql`
     allStrapiEvent(sort: { fields: information___dinnerDate, order: DESC }) {
       edges {
         node {
+          id
           title
           slug
           details
