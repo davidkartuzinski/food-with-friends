@@ -12,6 +12,7 @@ exports.createPages = async ({ graphql, node, getNode, actions }) => {
           edges {
             node {
               slug
+              title
             }
           }
         }
