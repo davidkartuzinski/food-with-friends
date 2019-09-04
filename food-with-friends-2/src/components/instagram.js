@@ -49,8 +49,8 @@ const Instagram = () => {
       <H2>Instagram</H2>
       <FlexDiv>
         {instaPhotos.map(photo => (
-          <A href={`https://instagram.com/p/${photo.id}/`}>
-            <Image key={photo.id} fluid={photo.fluid} alt={photo.caption} />
+          <A key={photo.id} href={`https://instagram.com/p/${photo.id}/`}>
+            <Image fluid={photo.fluid} alt={photo.caption} />
           </A>
         ))}
       </FlexDiv>

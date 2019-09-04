@@ -7,7 +7,7 @@ import ReadMoreLink from "./global/readMoreLink"
 
 const Card = ({
   details,
-  importantInformation,
+  information,
   isMainEvent,
   slug,
   subtitle,
@@ -20,11 +20,11 @@ const Card = ({
         <Link to={slug}>{title}</Link>
       </h3>
       {isMainEvent && <Subtitle subtitle={subtitle} />}
-      <Image fluid={image.fluid} />
+      <Image fluid={image} />
       {isMainEvent && (
         <p>
           <strong>Next Event Date: </strong>
-          {importantInformation.dinnerDate}
+          {information.dinnerDate}
         </p>
       )}
       <p>{details}</p>

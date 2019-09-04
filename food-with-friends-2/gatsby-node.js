@@ -1,9 +1,30 @@
-const events = require("./src/seedData").events
+// const events = require("./src/seedData").events
 const path = require("path")
 
-exports.onCreateNode = ({ node, getNode, actions }) => {
+exports.createPages = async ({ graphql, node, getNode, actions }) => {
   const { createPage } = actions
   const eventTemplate = path.resolve("./src/templates/event.js")
+  const results = await graphql(
+    `
+      {
+        allStrapiEvent {
+          totalCount
+          edges {
+            node {
+              slug
+              title
+            }
+          }
+        }
+      }
+    `
+  )
+
+  if (results.error) {
+    throw results.error
+  }
+
+  const events = results.data.allStrapiEvent.edges
 
   // Create the event pages
   events.forEach((event, index) => {
@@ -11,10 +32,10 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     const next = index === 0 ? null : events[index - 1]
 
     createPage({
-      path: event.slug,
+      path: event.node.slug,
       component: eventTemplate,
       context: {
-        slug: event.slug,
+        slug: event.node.slug,
         previous,
         next,
       },

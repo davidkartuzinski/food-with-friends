@@ -5,6 +5,26 @@
  */
 
 module.exports = {
+  siteMetadata: {
+    title: "Food with Friends",
+    description:
+      "Experience Food with Friends, Portland. There's more to life than Hustle & Grind",
+    siteUrl: `localhost:8000`,
+    menuLinks: [
+      {
+        name: "Home",
+        link: "/",
+      },
+      {
+        name: "About",
+        link: "/about",
+      },
+      {
+        name: "Friends",
+        link: "/friends",
+      },
+    ],
+  },
   plugins: [
     {
       resolve: `gatsby-source-filesystem`,
@@ -54,5 +74,13 @@ module.exports = {
     },
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
+    {
+      resolve: "gatsby-source-strapi",
+      options: {
+        apiURL: "http://localhost:1337",
+        contentTypes: ["bio", "user", "event"],
+      },
+      queryLimit: 1000,
+    },
   ],
 }

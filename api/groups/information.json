@@ -1,0 +1,22 @@
+{
+  "info": {
+    "name": "information",
+    "description": ""
+  },
+  "connection": "default",
+  "collectionName": "groups_information",
+  "attributes": {
+    "location": {
+      "type": "string"
+    },
+    "dinnerDate": {
+      "type": "date"
+    },
+    "address": {
+      "type": "string"
+    },
+    "googleMap": {
+      "type": "string"
+    }
+  }
+}

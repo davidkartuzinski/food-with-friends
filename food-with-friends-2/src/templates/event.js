@@ -4,27 +4,21 @@ import { Link, graphql } from "gatsby"
 import Image from "gatsby-image"
 import Layout from "../components/layout"
 import Article from "../components/global/article"
-import Title from "../components/global/Title"
-import * as seedData from "../seedData"
+import Title from "../components/global/title"
 
-const Event = ({ data, path, pageContext }) => {
-  const slug = path.replace("/", "")
+const Event = ({ data, pageContext }) => {
   const { previous, next } = pageContext
-  console.log(pageContext)
-  const currentEvent = seedData.events.find(event => event.slug === slug)
-  const fluid = get(
-    data,
-    ["allFile", "edges", "0", "node", "sharp", "fluid"],
-    {}
-  )
+  const currentEvent = data.strapiEvent
 
   return (
     <Layout>
       <div>
         <Article>
-          <Image fluid={fluid} />
-          <Title tiel={currentEvent.title} />
-          <p>Posted By: {currentEvent.author}</p>
+          <Image
+            fluid={get(currentEvent, ["image.childImageSharp.fluid"], {})}
+          />
+          <Title title={currentEvent.title} />
+          <p>Posted By: {currentEvent.author.username}</p>
           <h2>Important Information</h2>
           <div>
             <div>Dinner date: dinner date</div>
@@ -43,15 +37,15 @@ const Event = ({ data, path, pageContext }) => {
           >
             <li>
               {previous && (
-                <Link to={previous.slug} rel="prev">
-                  ← {previous.title}
+                <Link to={previous.node.slug} rel="prev">
+                  ← {previous.node.title}
                 </Link>
               )}
             </li>
             <li>
               {next && (
-                <Link to={next.slug} rel="next">
-                  {next.title} →
+                <Link to={next.node.slug} rel="next">
+                  {next.node.title} →
                 </Link>
               )}
             </li>
@@ -65,16 +59,27 @@ const Event = ({ data, path, pageContext }) => {
 export default Event
 
 export const pageQuery = graphql`
-  query imageHom($slug: String!) {
-    allFile(filter: { name: { eq: $slug } }) {
-      edges {
-        node {
-          publicURL
-          name
-          sharp: childImageSharp {
-            fluid(maxWidth: 1100) {
-              ...GatsbyImageSharpFluid
-            }
+  query StapiEventQuery($slug: String!) {
+    strapiEvent(slug: { eq: $slug }) {
+      title
+      author {
+        username
+      }
+      information {
+        dinnerDate(formatString: "MMMM DD, YYYY")
+        address
+        googleMap
+        location
+        id
+      }
+      details
+      friends {
+        username
+      }
+      image {
+        childImageSharp {
+          fluid(maxWidth: 1100) {
+            ...GatsbyImageSharpFluid
           }
         }
       }

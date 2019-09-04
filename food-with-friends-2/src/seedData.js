@@ -24,7 +24,7 @@ const events = [
     id: 1,
     title: "November 5 Grilled Hotdogs",
     author: "Jason Lengstorf",
-    importantInformation: {
+    information: {
       dinnerDate: "October 30, 2019",
       location: "Dogs and Fries",
       address: "SW 10th &, SW Mill St, Portland, OR 97201, USA",
@@ -48,7 +48,7 @@ const events = [
     id: 2,
     title: "October 20 French Pastry & Wine Dining",
     author: "Jason Lengstorf",
-    importantInformation: {
+    information: {
       dinnerDate: "October 20, 2019",
       location: "Piece of Cake Bakery",
       address: "8306 SE 17th Ave, Portland, OR 97202, USA",
@@ -75,7 +75,7 @@ const events = [
     id: 3,
     title: "November 15 Eggs And Salad",
     author: "Jason Lengstorf",
-    importantInformation: {
+    information: {
       dinnerDate: "November 15, 2019",
       location: "Fried Egg I'm in Love",
       address: "3549 SE Hawthorne Blvd, Portland, OR 97214, USA",
@@ -102,7 +102,7 @@ const events = [
     id: 4,
     title: "August 15 Autumn Soup",
     author: "Jason Lengstorf",
-    importantInformation: {
+    information: {
       dinnerDate: "August 15, 2019",
       location: "Savor Soup House",
       address: "7337 SE Foster Rd, Portland, OR 97206, USA",
@@ -129,7 +129,7 @@ const events = [
     id: 5,
     title: "August 25 Steak Tacos",
     author: "Jason Lengstorf",
-    importantInformation: {
+    information: {
       dinnerDate: "August 25, 2019",
       location: "Stella Taco",
       address: "3060 SE Division St, Portland, OR 97202, USA",
@@ -156,7 +156,7 @@ const events = [
     id: 6,
     title: "October 10 BBQ Chicken Time",
     author: "Jason Lengstorf",
-    importantInformation: {
+    information: {
       dinnerDate: "October 10, 2019",
       location: "Reverend's BBQ",
       address: "7712 SE 13th Ave, Portland, OR 97202, USA",
@@ -183,7 +183,7 @@ const events = [
     id: 7,
     title: "December 1 Meatballs and Greens",
     author: "Jason Lengstorf",
-    importantInformation: {
+    information: {
       dinnerDate: "December 1, 2019",
       location: "87th and Meatballs",
       address: "8737 N Lombard St, Portland, OR 97203, USA",

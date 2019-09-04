@@ -1,13 +1,10 @@
 import React from "react"
 import { Link } from "gatsby"
-import { get } from "lodash"
 import styled from "styled-components"
 import Slider from "react-animated-slider"
 import "react-animated-slider/build/horizontal.css"
-import { events } from "../seedData"
 import { setColor, setFontFamily } from "../styles"
 import { graphql, useStaticQuery } from "gatsby"
-import useImages from "../hooks/useImages"
 
 const Section = styled.section`
   margin-bottom: 2rem;
@@ -45,55 +42,64 @@ const InnerDiv = styled.div`
   }
 `
 
-const ImageSlider = () => {
-  // const query = graphql`
-  //   query image {
-  //     allFile {
-  //       edges {
-  //         node {
-  //           publicURL
-  //           name
-  //         }
-  //       }
-  //     }
-  //   }
-  // `
-  // const data = useStaticQuery(query)
+const query = graphql`
+  {
+    allStrapiEvent(filter: { featured: { eq: true } }) {
+      totalCount
+      edges {
+        node {
+          id
+          title
+          slug
+          information {
+            dinnerDate(formatString: "MMMM DD, YYYY")
+          }
+          image {
+            childImageSharp {
+              fluid(maxWidth: 1100) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`
 
-  // const images = get(data, "allFile.edges", []).reduce((acc, current) => {
-  //   const {
-  //     node: { name, publicURL },
-  //   } = current
-  //   acc[name] = publicURL
-  //   return acc
-  // }, {})
-  const images = useImages()
+const ImageSlider = () => {
+  const {
+    allStrapiEvent: { edges },
+  } = useStaticQuery(query)
 
   return (
     <Section>
       <Slider>
-        {events.slice(0, 3).map((event, index) => (
-          <OuterDiv
-            key={index}
-            className="slider-content"
-            style={{
-              backgroundImage: `url(${window.location.origin}${images[event.slug].publicURL})`,
-              height: `350px`,
-            }}
-          >
-            <InnerDiv>
-              <p>{event.importantInformation.dinnerDate}</p>
-              <h2>
-                <Link
-                  style={{ color: `${setColor.mainBlack}` }}
-                  to={event.slug}
-                >
-                  {event.title} &rarr;{" "}
-                </Link>
-              </h2>
-            </InnerDiv>
-          </OuterDiv>
-        ))}
+        {edges.map((event, index) => {
+          const { node } = event
+          return (
+            <OuterDiv
+              key={node.id}
+              className="slider-content"
+              style={{
+                backgroundImage: `url(${node.image.childImageSharp.fluid.src})`,
+                height: `350px`,
+              }}
+            >
+              <InnerDiv>
+                <p>{node.information.dinnerDate}</p>
+                <h2>
+                  <Link
+                    style={{ color: `${setColor.mainBlack}` }}
+                    to={node.slug}
+                  >
+                    {node.title} &rarr;{" "}
+                  </Link>
+                </h2>
+              </InnerDiv>
+            </OuterDiv>
+          )
+        })}
       </Slider>
     </Section>
   )

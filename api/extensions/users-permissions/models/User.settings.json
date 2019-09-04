@@ -59,6 +59,14 @@
     "bio": {
       "model": "bio",
       "via": "author"
+    },
+    "events": {
+      "collection": "event",
+      "via": "author"
+    },
+    "joinedEvents": {
+      "collection": "event",
+      "via": "friends"
     }
   }
 }

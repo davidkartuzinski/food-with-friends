@@ -76,12 +76,12 @@ export default class MailChimpComponent extends React.Component {
   render() {
     return (
       <>
-        <Section class="form-section">
-          <h3 class="form-h3">{newsletterData.headline}</h3>
-          <p class="form-p">{newsletterData.tagline}</p>
+        <Section className="form-section">
+          <h3 className="form-h3">{newsletterData.headline}</h3>
+          <p className="form-p">{newsletterData.tagline}</p>
           <div>
-            <form class="form-form" onSubmit={this._handleSubmit}>
-              <label class="form-label" for="email">
+            <form className="form-form" onSubmit={this._handleSubmit}>
+              <label className="form-label" htmlFor="email">
                 <span>*</span>Email
               </label>
               <Input
@@ -94,7 +94,7 @@ export default class MailChimpComponent extends React.Component {
                 required
               />
               <Button type="submit">{newsletterData.buttonText}</Button>
-              <p class="form-p">
+              <p className="form-p">
                 <small>
                   <span>*</span>
                   {newsletterData.privacyText}

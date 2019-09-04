@@ -1,8 +1,8 @@
 import React from "react"
 import styled from "styled-components"
+import { graphql, useStaticQuery } from "gatsby"
 import { RowMenu } from "../components/menu"
 import Logo from "../components/global/logo"
-import { menuItems } from "../seedData"
 import { setColor, setFontFamily, setFontSize } from "../styles"
 import { sloganWords } from "../seedData"
 import MobileMenu from "../components/mobileMenu"
@@ -25,16 +25,35 @@ const P = styled.p`
   text-align: center;
 `
 
+const query = graphql`
+  {
+    site {
+      siteMetadata {
+        menuLinks {
+          name
+          link
+        }
+      }
+    }
+  }
+`
+
 const Header = () => {
+  const {
+    site: {
+      siteMetadata: { menuLinks },
+    },
+  } = useStaticQuery(query)
+
   return (
     <>
       <GlobalStyles />
-      <MobileMenu right menuItems={menuItems} />
+      <MobileMenu right menuItems={menuLinks} />
       <HeaderHTML>
         <Logo />
         <P> {sloganWords}</P>
       </HeaderHTML>
-      <RowMenu menuItems={menuItems} center />
+      <RowMenu center menuItems={menuLinks} />
     </>
   )
 }

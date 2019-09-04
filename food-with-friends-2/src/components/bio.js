@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import Img from "gatsby-image"
-import { bioData } from "../seedData"
+import { get } from "lodash"
 import { graphql, useStaticQuery } from "gatsby"
 import { setColor, setFontFamily } from "../styles"
 
@@ -24,24 +24,32 @@ const Section = styled.section`
 
 const Bio = ({ className, small }) => {
   const data = useStaticQuery(query)
+  const bio = get(data, ["strapiBio"])
 
   return (
     <Section>
-      <h3>{bioData.headline}</h3>
-      <Img className={className} fluid={data.logo.childImageSharp.fluid} />
-      <small>{bioData.author}</small>
-      <p>{bioData.content}</p>
+      <h3>{bio.headline}</h3>
+      <Img
+        className={className}
+        fluid={get(bio, ["image", "childImageSharp", "fluid"])}
+      />
+      <small>Jason</small>
+      <p>{bio.content}</p>
     </Section>
   )
 }
 
 const query = graphql`
-  query bioImage {
-    logo: file(relativePath: { eq: "bbq-jason.jpg" }) {
-      relativePath
-      childImageSharp {
-        fluid {
-          ...GatsbyImageSharpFluid_withWebp
+  query BioData {
+    strapiBio(author: { username: { eq: "Jason" } }) {
+      id
+      headline
+      content
+      image {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid_withWebp
+          }
         }
       }
     }
