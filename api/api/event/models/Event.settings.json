@@ -42,6 +42,9 @@
       "via": "joinedEvents",
       "dominant": true,
       "plugin": "users-permissions"
+    },
+    "featured": {
+      "type": "boolean"
     }
   }
 }
