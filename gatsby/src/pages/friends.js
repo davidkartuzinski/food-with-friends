@@ -1,6 +1,6 @@
 import React from "react"
 import { get } from "lodash"
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 import Layout from "../components/layout"
 
 const Friends = ({ data }) => {
@@ -19,7 +19,11 @@ const Friends = ({ data }) => {
                 {friend.node.username}&nbsp; ({joinedEventsNumber})
                 <ul>
                   {joinedEvents.map(event => {
-                    return <li key={event.id}>{event.title}</li>
+                    return (
+                      <li key={event.id}>
+                        <Link to={event.slug}>{event.title}</Link>
+                      </li>
+                    )
                   })}
                 </ul>
               </li>
