@@ -5,6 +5,26 @@
  */
 
 module.exports = {
+  siteMetadata: {
+    title: "Food with Friends",
+    description:
+      "Experience Food with Friends, Portland. There's more to life than Hustle & Grind",
+    siteUrl: `localhost:8000`,
+    menuLinks: [
+      {
+        name: "Home",
+        link: "/",
+      },
+      {
+        name: "About",
+        link: "/about",
+      },
+      {
+        name: "Friends",
+        link: "/friends",
+      },
+    ],
+  },
   plugins: [
     {
       resolve: `gatsby-source-filesystem`,

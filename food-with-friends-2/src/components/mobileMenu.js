@@ -1,7 +1,6 @@
 import React from "react"
 import { Link } from "gatsby"
 import { elastic as Menu } from "react-burger-menu"
-import { menuItems } from "../seedData"
 import { createGlobalStyle } from "styled-components"
 import { setColor, setFontFamily } from "../styles"
 
@@ -87,13 +86,13 @@ Note: Beware of modifying this element as it can break the animations - you shou
   }
 `
 
-const menu = menuItems.map(item => (
-  <Link key={item.id} to={`${item.link}/`}>
-    {item.name}
-  </Link>
-))
-
 export default props => {
+  const menu = props.menuItems.map(item => (
+    <Link key={item.id} to={`${item.link}/`}>
+      {item.name}
+    </Link>
+  ))
+
   return (
     <>
       <GlobalStyle />
