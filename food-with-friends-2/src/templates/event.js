@@ -4,7 +4,7 @@ import { Link, graphql } from "gatsby"
 import Image from "gatsby-image"
 import Layout from "../components/layout"
 import Article from "../components/global/article"
-import Title from "../components/global/Title"
+import Title from "../components/global/title"
 import * as seedData from "../seedData"
 
 const Event = ({ data, path, pageContext }) => {
