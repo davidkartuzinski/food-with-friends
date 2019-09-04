@@ -38,105 +38,24 @@ const Div = styled.div`
   }
 `
 
-// const Home = () => {
-//   const LatestEvent = events[0]
-
-//   const query = graphql`
-//     query imageHome {
-//       allFile {
-//         edges {
-//           node {
-//             publicURL
-//             name
-//           }
-//         }
-//       }
-//     }
-//   `
-//   // const data = useStaticQuery(query)
-
-//   // const images = get(data, "allFile.edges", []).reduce((acc, current) => {
-//   //   const {
-//   //     node: { name, publicURL },
-//   //   } = current
-//   //   acc[name] = publicURL
-//   //   return acc
-//   // }, {})
-
-//   // console.log(images)
-//   return (
-//     <div>
-//       <Helmet>
-//         <html lang="en" />
-//         <title>Food with Friends | Home Page</title>
-//         <meta
-//           name="description"
-//           content="There is more to Life than Hustle & Grind. It is about spending time with those you care about, eating good food, drinking great drinks and simply enjoying life."
-//         />
-//       </Helmet>
-//       <Header />
-//       <ImageSlider />
-//       <Layout>
-//         <div>
-//           <Title center title="Food with Friends" />
-//           <Article>
-//             <h3>
-//               <Link to={LatestEvent.slug}>{LatestEvent.title}</Link>
-//             </h3>
-
-//             <SubTitle subTitle="Latest Food with Friends Announcement" />
-
-//             <Div>Image</Div>
-
-//             <p>
-//               <strong>Next Event Date: </strong>
-//               {LatestEvent.importantInformation.dinnerDate}
-//             </p>
-//             <p>{LatestEvent.Details}</p>
-
-//             <ReadMoreLink to={LatestEvent.slug}>
-//               All Information &rarr;
-//             </ReadMoreLink>
-//           </Article>
-//         </div>
-//       </Layout>
-//     </div>
-//   )
-// }
-
-// export default Home
-
-const IndexPage = () => {
-  const images = useImages()
-  const orderedEvents = orderBy(
-    seed.events,
-    data => {
-      const date = new Date(
-        get(data, ["importantInformation", "dinnerDate"])
-      ).toISOString()
-
-      return date
-    },
-    ["desc"]
-  )
+const IndexPage = ({ data }) => {
   const getDiffDays = event => {
     const currentDate = new Date()
-    const eventDate = new Date(
-      get(event, ["importantInformation", "dinnerDate"])
-    )
+    const eventDate = new Date(get(event, ["information", "dinnerDate"]))
     const diffTime = eventDate.getTime() - currentDate.getTime()
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
 
     return diffDays
   }
   const nextEventDate = orderBy(
-    orderedEvents,
+    data.allStrapiEvent.edges,
     event => {
-      return getDiffDays(event)
+      console.log(event)
+      return getDiffDays(event.node)
     },
     "asc"
   ).filter(event => {
-    return getDiffDays(event) > 0
+    return getDiffDays(event.node) > 0
   })[0]
 
   return (
@@ -145,17 +64,17 @@ const IndexPage = () => {
         <Title center title="Food with Friends" />
         <Article>
           <Card
-            {...nextEventDate}
-            image={images[nextEventDate.image.replace(".jpg", "")].fluid}
+            {...nextEventDate.node}
+            image={nextEventDate.node.image.childImageSharp.fluid}
             isMainEvent
           />
 
-          {orderedEvents.map((event, index) => {
+          {data.allStrapiEvent.edges.map((event, index) => {
             return (
               <Card
-                {...event}
-                key={event.id}
-                image={images[event.image.replace(".jpg", "")].fluid}
+                {...event.node}
+                key={event.node.id}
+                image={event.node.image.childImageSharp.fluid}
               />
             )
           })}
@@ -166,3 +85,27 @@ const IndexPage = () => {
 }
 
 export default IndexPage
+
+export const pageQuery = graphql`
+  query {
+    allStrapiEvent(sort: { fields: information___dinnerDate, order: DESC }) {
+      edges {
+        node {
+          title
+          slug
+          details
+          information {
+            dinnerDate(formatString: "MMMM DD, YYYY")
+          }
+          image {
+            childImageSharp {
+              fluid(maxWidth: 1100) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`

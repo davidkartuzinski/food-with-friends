@@ -82,7 +82,7 @@ const ImageSlider = () => {
             }}
           >
             <InnerDiv>
-              <p>{event.importantInformation.dinnerDate}</p>
+              <p>{event.information.dinnerDate}</p>
               <h2>
                 <Link
                   style={{ color: `${setColor.mainBlack}` }}

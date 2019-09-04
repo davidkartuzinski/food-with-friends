@@ -58,7 +58,7 @@ module.exports = {
       resolve: "gatsby-source-strapi",
       options: {
         apiURL: "http://localhost:1337",
-        contentTypes: ["bio", "user"],
+        contentTypes: ["bio", "user", "event"],
       },
       queryLimit: 1000,
     },
