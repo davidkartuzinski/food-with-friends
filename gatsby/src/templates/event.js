@@ -21,7 +21,7 @@ const Event = ({ data, pageContext }) => {
           <p>Posted By: {currentEvent.author.username}</p>
           <h2>Important Information</h2>
           <div>
-            <div>Dinner date: dinner date</div>
+            <div>{currentEvent.information.dinnerDate}</div>
           </div>
           <div>{currentEvent.details}</div>
         </Article>
